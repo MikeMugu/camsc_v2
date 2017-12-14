@@ -1,0 +1,26 @@
+extends layout
+
+block content
+    link(rel='stylesheet', href='/stylesheets/standings.css')
+    h1= title
+    #standingsOneBlock(about='standingsOne' class='standingsBlock')
+        div(property='content')
+            if typeof(standingsOne_content) !== 'undefined'
+                != standingsOne_content
+            else
+                | [edit here]
+
+    #standingsTwoBlock(about='standingsTwo' class='standingsBlock')
+        div(property='content')
+            if typeof(standingsTwo_content) !== 'undefined'
+                != standingsTwo_content
+            else
+                | [edit here]
+    
+    #standingsThreeBlock(about='standingsThree' class='standingsBlock')
+        div(property='content')
+            if typeof(standingsThree_content) !== 'undefined'
+                != standingsThree_content
+            else
+                | [edit here]
+

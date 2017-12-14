@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    link(rel='stylesheet', href='/stylesheets/directory.css')
+    h1= title
+    #directory(about='directory' class='directoryBlock')
+        div(property='content')
+            if typeof(directory_content) !== 'undefined'
+                != directory_content
+            else
+                | [edit here]
+    

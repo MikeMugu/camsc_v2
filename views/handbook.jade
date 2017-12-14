@@ -1,0 +1,39 @@
+extends layout
+
+block content
+    link(rel='stylesheet', href='/stylesheets/handbook.css')
+    h1= title
+    #handbookMission(about='handbookMission' class='handbookBlock')
+        div(property='content')
+            if typeof(handbookMission_content) !== 'undefined'
+                != handbookMission_content
+            else
+                | [edit here]
+
+    #article1(about='article1' class='handbookBlock')
+        div(property='content')
+            if typeof(article1_content) !== 'undefined'
+                != article1_content
+            else
+                | [edit here]
+
+    #article1(about='article2' class='handbookBlock')
+        div(property='content')
+            if typeof(article2_content) !== 'undefined'
+                != article2_content
+            else
+                | [edit here]
+
+    #article1(about='article3' class='handbookBlock')
+        div(property='content')
+            if typeof(article3_content) !== 'undefined'
+                != article3_content
+            else
+                | [edit here]
+
+    #article1(about='article4' class='handbookBlock')
+        div(property='content')
+            if typeof(article4_content) !== 'undefined'
+                != article4_content
+            else
+                | [edit here]

@@ -1,0 +1,33 @@
+extends layout
+
+block content
+    link(rel='stylesheet', href='/stylesheets/archives.css')
+    h1= title
+    #archive1(about='archive1' class='archiveBlock')
+        div(property='content')
+            if typeof(archive1_content) !== 'undefined'
+                != archive1_content
+            else
+                | [edit here]
+
+    #archive1(about='archive2' class='archiveBlock')
+        div(property='content')
+            if typeof(archive2_content) !== 'undefined'
+                != archive2_content
+            else
+                | [edit here]
+
+    #archive1(about='archive3' class='archiveBlock')
+        div(property='content')
+            if typeof(archive3_content) !== 'undefined'
+                != archive3_content
+            else
+                | [edit here]
+
+    #archive1(about='archive4' class='archiveBlock')
+        div(property='content')
+            if typeof(archive4_content) !== 'undefined'
+                != archive4_content
+            else
+                | [edit here]
+

@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    h1= title
+    #homeContentBlock(about='Description')
+        div(property='content')
+            if typeof(Description_content) !== 'undefined'
+                != Description_content
+            else
+                | [edit here]
