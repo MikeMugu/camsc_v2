@@ -8,6 +8,7 @@ var mongo = require('mongoskin');
 ContentProvider = function(db)
 {
     this.db = db;
+    this.collection = db.collection('content');
 };
 
 /**
@@ -20,14 +21,7 @@ ContentProvider = function(db)
 * }
 */
 ContentProvider.prototype.getCollection = function(callback) {
-    this.db.collection('content', function(error, content_collection) {
-        if (error) {
-            callback(error);
-        }
-        else {
-            callback(null, content_collection);
-        }
-    });
+    callback(this.collection);
 };
 
 /**
@@ -41,25 +35,18 @@ ContentProvider.prototype.getCollection = function(callback) {
 * }
 */
 ContentProvider.prototype.findOne = function(itemId, callback) {
-        this.getCollection(function(error, content_collection) {
-        if (error) {
-            callback(error);
+    var id = mongo.ObjectID.createFromHexString(itemId);
+    this.collection.findOne({'_id': id }, function(err, document) {
+        if (!err && document != null) {
+            callback(null, document);
         }
         else {
-            var id = mongo.ObjectID.createFromHexString(itemId);
-            content_collection.findOne({'_id': id }, function(err, document) {
-                if (!err && document != null) {
-                    callback(null, document);
-                }
-                else {
-                    if (!err) {
-                        callback('ID not found ' + itemId);
-                    }
-                    else {
-                        throw err;
-                    }
-                }
-            });
+            if (!err) {
+                callback('ID not found ' + itemId);
+            }
+            else {
+                throw err;
+            }
         }
     });
 };
@@ -76,28 +63,18 @@ ContentProvider.prototype.findOne = function(itemId, callback) {
 * });
 */
 ContentProvider.prototype.find = function(query, callback) {
-    console.log("find called with query " + query);
-    this.getCollection(function(error, content_collection) {
-        if (error) {
-            callback(error);
+    console.log("find called with query " + JSON.stringify(query));
+    this.collection.find(query).toArray(function(err, items) {
+        if (!err && items != null) {
+            callback(null, items);
+        } else {
+            if (err) {
+                console.log("An error ocurred trying to find: " + err);
+            }
+            callback("No records found.");
         }
-        else {
-            content_collection.find(query).toArray(function (err, items) {
-                if (!err && items != null) {
-                    callback(null, items);
-                }
-                else {
-                    if (err) {
-                        console.log("An error ocurred trying to find: " + err);
-                    }
-                    callback("No records found.");
-                }
-            });
-        }
-    });
+    });    
 };
-
-
 
 
 /**
@@ -111,11 +88,8 @@ ContentProvider.prototype.find = function(query, callback) {
 * }
 */
 ContentProvider.prototype.save = function(data, callback) {
-    this.getCollection(function(error, content_collection) {
-        // Insert the new item.
-        content_collection.insert(data, { safe: true }, function(err) {
-            callback(err);
-        });
+    this.collection.insert(data, { safe: true }, function(err) {
+        callback(err);
     });
 };
 
@@ -136,20 +110,18 @@ ContentProvider.prototype.save = function(data, callback) {
 * }
 */
 ContentProvider.prototype.update = function(itemId, data, callback) {
-    this.getCollection(function(error, content_collection) {
-        content_collection.update({ '_id': new mongo.ObjectID(itemId) }, data, { safe: true, multi: false }, function (err, count) {
-            if (!err && count > 0) {
-                callback(data, count);
+    this.collection.update({ '_id': new mongo.ObjectID(itemId) }, data, { safe: true, multi: false }, function (err, count) {
+        if (!err && count > 0) {
+            callback(data, count);
+        }
+        else {
+            if (err != null) {
+                throw err.message;
             }
             else {
-                if (err != null) {
-                    throw err.message;
-                }
-                else {
-                    throw 'No record could be updated with id ' + itemId + '.';
-                }
+                throw 'No record could be updated with id ' + itemId + '.';
             }
-        });
+        }
     });
 };
     
@@ -169,22 +141,21 @@ ContentProvider.prototype.update = function(itemId, data, callback) {
 * }
 */  
 ContentProvider.prototype.delete = function(itemId, callback) {
-    this.getCollection(function(error, content_collection) {
-        var objectId = mongo.ObjectID.createFromHexString(itemId);
-        content_collection.remove({ '_id' : itemId }, { safe: true, multi: false }, function(err, count) {
-            if (!err && count > 0) {
-                callback(itemId, count);
+    
+    var objectId = mongo.ObjectID.createFromHexString(itemId);
+    this.collection.remove({ '_id' : itemId }, { safe: true, multi: false }, function(err, count) {
+        if (!err && count > 0) {
+            callback(itemId, count);
+        }
+        else {
+            if (err != null) {
+                throw err.Message;
             }
             else {
-                if (err != null) {
-                    throw err.Message;
-                }
-                else {
-                    throw 'No record delete. Couldnot find content block with id ' + itemId + '.';
-                }
+                throw 'No record delete. Couldnot find content block with id ' + itemId + '.';
             }
-        });
-    });
+        }
+    });    
 };
     
     
