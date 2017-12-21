@@ -226,10 +226,6 @@
                     "value": "${DATABASE_NAME}"
                   },
                   {
-                    "name": "OPENSHIFT_NODEJS_PORT",
-                    "value": "8080"
-                  },
-                  {
                     "name": "MONGODB_ADMIN_PASSWORD",
                     "valueFrom": {
                       "secretKeyRef" : {
