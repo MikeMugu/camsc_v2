@@ -192,6 +192,7 @@ var CapitalAreaMSC = function() {
         { 
             app: self.app, 
             host: self.host, 
+            port: self.port,
             pathFind: '/content/find?q={"@subject":"[id]"}',
             pathPost: '/content', 
             pathPut: '/content/[id]', 
