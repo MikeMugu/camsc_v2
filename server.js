@@ -29,7 +29,7 @@ var CapitalAreaMSC = function() {
     self.setupVariables = function() {
         //  Set the environment variables we need.
         self.ipaddress = process.env.OPENSHIFT_NODEJS_IP;
-        self.port      = process.env.OPENSHIFT_NODEJS_PORT || 80;
+        self.port      = process.env.OPENSHIFT_NODEJS_PORT || 8080;
         self.host      = process.env.OPENSHIFT_APP_DNS || 'localhost';
         
         self.db_connection = process.env.OPENSHIFT_MONGODB_DB_URL || 'mongodb://localhost:27017/camsc';
