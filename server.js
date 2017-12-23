@@ -36,6 +36,7 @@ var CapitalAreaMSC = function() {
         console.log('process.env.OPENSHIFT_NODEJS_IP: ' + process.env.OPENSHIFT_NODEJS_IP);
         console.log('process.env.PORT: ' + process.env.PORT);
         console.log('process.env.OPENSHIFT_NODEJS_PORT: ' + process.env.OPENSHIFT_NODEJS_PORT);
+        console.log('process.env.MONGODB_DATABASE: ' + process.env.DATABASE_SERVICE_NAME);
         
         if (typeof self.ipaddress === "undefined") {
             //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
