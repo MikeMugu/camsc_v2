@@ -48,8 +48,8 @@ var CapitalAreaMSC = function() {
             self.db_connection = dbUrlLabel;
         }
         else {
-            if (dbUrl == '' && process.env.DATABASE_SERVICE_NAME) {
-                
+            if (dbUrl == null && process.env.DATABASE_SERVICE_NAME) {
+                console.log("Constructing db connection...");
                 var dbServiceName = process.env.DATABASE_SERVICE_NAME;
                 var dbUser = process.env[dbServiceName + '_USER'];
                 var dbPwd = process.env[dbServiceName + '_PASSWORD'];
@@ -60,7 +60,7 @@ var CapitalAreaMSC = function() {
                 if (dbHost  && dbPort && dbName) {
                     dbUrlLabel = dbUrl = 'mongodb://';
 
-                    if (mongoUser && mongoPassword) {
+                    if (dbUser && dbPwd) {
                         dbUrl += dbUser + ':' + dbPwd + '@';
                     }
                     // Provide UI label that excludes user id and pw
