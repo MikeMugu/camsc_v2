@@ -28,8 +28,8 @@ var CapitalAreaMSC = function() {
      */
     self.setupVariables = function() {
         //  Set the environment variables we need.
-        self.ipaddress = process.env.OPENSHIFT_NODEJS_IP;
-        self.port      = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+        self.ipaddress = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+        self.port      = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
         self.host      = process.env.OPENSHIFT_APP_DNS || 'localhost';
         
         if (typeof self.ipaddress === "undefined") {
@@ -43,7 +43,7 @@ var CapitalAreaMSC = function() {
         var dbUrlLabel = '';
 
         // Setup database connection
-        if (self.host == 'localhost') {
+        if (self.ipaddress == '127.0.0.1') {
             dbUrlLabel = 'mongodb://localhost:27017/camsc';
             self.db_connection = dbUrlLabel;
         }
@@ -59,6 +59,7 @@ var CapitalAreaMSC = function() {
 
                 if (dbHost  && dbPort && dbName) {
                     dbUrlLabel = dbUrl = 'mongodb://';
+
                     if (mongoUser && mongoPassword) {
                         dbUrl += dbUser + ':' + dbPwd + '@';
                     }
