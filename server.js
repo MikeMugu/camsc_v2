@@ -48,7 +48,7 @@ var CapitalAreaMSC = function() {
             self.db_connection = dbUrlLabel;
         }
         else {
-            if (dbUrl == null && process.env.DATABASE_SERVICE_NAME) {
+            if (dbUrl == '' && process.env.DATABASE_SERVICE_NAME) {
                 
                 var dbServiceName = process.env.DATABASE_SERVICE_NAME;
                 var dbUser = process.env[dbServiceName + '_USER'];
