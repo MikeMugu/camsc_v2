@@ -32,14 +32,45 @@ var CapitalAreaMSC = function() {
         self.port      = process.env.OPENSHIFT_NODEJS_PORT || 8080;
         self.host      = process.env.OPENSHIFT_APP_DNS || 'localhost';
         
-        self.db_connection = process.env.OPENSHIFT_MONGODB_DB_URL || 'mongodb://localhost:27017/camsc';
-        
         if (typeof self.ipaddress === "undefined") {
             //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
             //  allows us to run/test the app locally.
             console.warn('No OPENSHIFT_NODEJS_IP var, using 127.0.0.1');
             self.ipaddress = "127.0.0.1";
         };
+        
+        var dbUrl = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL;
+        var dbUrlLabel = '';
+
+        // Setup database connection
+        if (self.host == 'localhost') {
+            dbUrlLabel = 'mongodb://localhost:27017/camsc';
+            self.db_connection = dbUrlLabel;
+        }
+        else {
+            if (mongoUrl == null && process.env.DATABASE_SERVICE_NAME) {
+                
+                var dbServiceName = process.env.DATABASE_SERVICE_NAME;
+                var dbUser = process.env[dbServiceName + '_USER'];
+                var dbPwd = process.env[dbServiceName + '_PASSWORD'];
+                var dbName = process.env[dbServiceName + '_DATABASE'];
+                var dbHost = process.env[dbServiceName + '_SERVICE_HOST'];
+                var dbPort = process.env[dbServiceName + '_SERVICE_PORT'];
+
+                if (dbHost  && dbPort && dbName) {
+                    dbUrlLabel = dbUrl = 'mongodb://';
+                    if (mongoUser && mongoPassword) {
+                        dbUrl += dbUser + ':' + dbPwd + '@';
+                    }
+                    // Provide UI label that excludes user id and pw
+                    dbUrlLabel += dbHost + ':' + dbPort + '/' + dbName;
+                    dbURL += dbHost + ':' +  dbPort + '/' + dbName;
+                }
+
+                self.db_connection = dbUrl;
+            }
+        }
+        console.log('Database Url resolved to: ' + dbUrlLabel);
     };
 
 
