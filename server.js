@@ -71,7 +71,7 @@ var CapitalAreaMSC = function() {
                 self.db_connection = dbUrl;
             }
         }
-        console.log('Database Url resolved to: ' + dbUrlLabel);
+        console.log('Database Url resolved to: ' + dbUrl);
     };
 
 
