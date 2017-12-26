@@ -32,13 +32,6 @@ var CapitalAreaMSC = function() {
         self.port      = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
         self.host      = process.env.OPENSHIFT_APP_DNS || 'localhost';
         
-        if (typeof self.ipaddress === "undefined") {
-            //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
-            //  allows us to run/test the app locally.
-            console.warn('No OPENSHIFT_NODEJS_IP var, using 127.0.0.1');
-            self.ipaddress = "127.0.0.1";
-        };
-        
         var dbUrl = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL;
         var dbUrlLabel = '';
 
@@ -48,7 +41,7 @@ var CapitalAreaMSC = function() {
             self.db_connection = dbUrlLabel;
         }
         else {
-            if (dbUrl == null && process.env.DATABASE_SERVICE_NAME) {
+            if (dbUrl === 'undefined' && process.env.DATABASE_SERVICE_NAME) {
                 console.log("Constructing db connection...");
                 var dbServiceName = process.env.DATABASE_SERVICE_NAME;
                 var dbUser = process.env[dbServiceName + '_USER'];
