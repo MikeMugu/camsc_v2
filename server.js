@@ -36,11 +36,11 @@ var CapitalAreaMSC = function() {
         var dbUrlLabel = '';
 
         // Setup database connection
-//        if (self.ipaddress == '127.0.0.1') {
-//            dbUrlLabel = 'mongodb://localhost:27017/camsc';
-//            self.db_connection = dbUrlLabel;
-//        }
-//        else {
+        if (self.ipaddress == '0.0.0.0') {
+            dbUrlLabel = 'mongodb://localhost:27017/camsc';
+            self.db_connection = dbUrlLabel;
+        }
+        else {
             if (!dbUrl && process.env.DATABASE_SERVICE_NAME) {
                 console.log("Constructing db connection...");
                 var dbServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase();
@@ -49,14 +49,7 @@ var CapitalAreaMSC = function() {
                 var dbName = process.env[dbServiceName + '_DATABASE'];
                 var dbHost = process.env[dbServiceName + '_SERVICE_HOST'];
                 var dbPort = process.env[dbServiceName + '_SERVICE_PORT'];
-
-                console.log('dbServiceName: ' + dbServiceName);
-                console.log('dbUser: ' + dbUser);
-                console.log('dbPwd: ' + dbPwd);
-                console.log('dbName: ' + dbName);
-                console.log('dbHost: ' + dbHost);
-                console.log('dbPort: ' + dbPort);
-
+                
                 if (dbHost  && dbPort && dbName) {
                     dbUrlLabel = dbUrl = 'mongodb://';
 
@@ -65,12 +58,12 @@ var CapitalAreaMSC = function() {
                     }
                     // Provide UI label that excludes user id and pw
                     dbUrlLabel += dbHost + ':' + dbPort + '/' + dbName;
-                    dbURL += dbHost + ':' +  dbPort + '/' + dbName;
+                    dbUrl += dbHost + ':' +  dbPort + '/' + dbName;
                 }
 
                 self.db_connection = dbUrl;
             }
-//        }
+        }
         console.log('Database Url resolved to: ' + dbUrlLabel);
     };
 

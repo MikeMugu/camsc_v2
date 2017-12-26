@@ -4,8 +4,8 @@
 // Example: http://your.service.com/api/findById?id=[id]
 //
 //var restUrl = 'http://www.capitalareamsc.com/content/find?q={"@subject": "[id]"}';
-//var restUrl = 'http://127.0.0.1:8080/content/find?q={"@subject": "[id]"}';
-var restUrl = 'http://camsc-camsc.1d35.starter-us-east-1.openshiftapps.com/content/find?q={"@subject": "[id]"}';
+var restUrl = 'http://127.0.0.1:8080/content/find?q={"@subject": "[id]"}';
+//var restUrl = 'http://camsc-camsc.1d35.starter-us-east-1.openshiftapps.com/content/find?q={"@subject": "[id]"}';
 var apiKey = ''; // Unique key for the demo REST web service, red-ant.herokuapp.com. If you use the demo service, change this key to be unique. If using your own service, you can leave this blank.
 var editor = 'aloha'; // Editor can be aloha or hallo.
 var loaded = false;
