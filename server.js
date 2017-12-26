@@ -50,6 +50,13 @@ var CapitalAreaMSC = function() {
                 var dbHost = process.env[dbServiceName + '_SERVICE_HOST'];
                 var dbPort = process.env[dbServiceName + '_SERVICE_PORT'];
 
+                console.log('dbServiceName: ' + dbServiceName);
+                console.log('dbUser: ' + dbUser);
+                console.log('dbPwd: ' + dbPwd);
+                console.log('dbName: ' + dbName);
+                console.log('dbHost: ' + dbHost);
+                console.log('dbPort: ' + dbPort);
+
                 if (dbHost  && dbPort && dbName) {
                     dbUrlLabel = dbUrl = 'mongodb://';
 
