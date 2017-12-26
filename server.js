@@ -36,12 +36,12 @@ var CapitalAreaMSC = function() {
         var dbUrlLabel = '';
 
         // Setup database connection
-        if (self.ipaddress == '127.0.0.1') {
-            dbUrlLabel = 'mongodb://localhost:27017/camsc';
-            self.db_connection = dbUrlLabel;
-        }
-        else {
-            if (dbUrl === 'undefined' && process.env.DATABASE_SERVICE_NAME) {
+//        if (self.ipaddress == '127.0.0.1') {
+//            dbUrlLabel = 'mongodb://localhost:27017/camsc';
+//            self.db_connection = dbUrlLabel;
+//        }
+//        else {
+            if (!dbUrl && process.env.DATABASE_SERVICE_NAME) {
                 console.log("Constructing db connection...");
                 var dbServiceName = process.env.DATABASE_SERVICE_NAME;
                 var dbUser = process.env[dbServiceName + '_USER'];
@@ -63,8 +63,8 @@ var CapitalAreaMSC = function() {
 
                 self.db_connection = dbUrl;
             }
-        }
-        console.log('Database Url resolved to: ' + dbUrl);
+//        }
+        console.log('Database Url resolved to: ' + dbUrlLabel);
     };
 
 
