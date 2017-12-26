@@ -43,7 +43,7 @@ var CapitalAreaMSC = function() {
 //        else {
             if (!dbUrl && process.env.DATABASE_SERVICE_NAME) {
                 console.log("Constructing db connection...");
-                var dbServiceName = process.env.DATABASE_SERVICE_NAME;
+                var dbServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase();
                 var dbUser = process.env[dbServiceName + '_USER'];
                 var dbPwd = process.env[dbServiceName + '_PASSWORD'];
                 var dbName = process.env[dbServiceName + '_DATABASE'];
