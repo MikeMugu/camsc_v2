@@ -66,7 +66,7 @@ GenUtil = {
         
         console.log('Checking for admin for remote ip ' + ip);
         
-        var whitelistedIPs = ['127.0.0.1','99.98.184.48','172.23.3.64','66.193.5.119','50.58.91.98','152.26.239.66'];
+        var whitelistedIPs = ['127.0.0.1','99.98.184.48','172.23.3.64','66.193.5.119','50.58.91.98','152.26.239.66','99.111.154.138'];
         var result = (whitelistedIPs.indexOf(ip) !== -1 && req.query['admin'] == '1');
         if (result) {
             console.log('Granting permission to edit the site to remote ip ' + ip);
